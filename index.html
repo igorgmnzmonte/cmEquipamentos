@@ -1,11 +1,946 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" sizes="192x192" href="CMlogo.png" type="image/png">
+<title>CM Equipamentos — CMRouter CNC | João Pessoa, PB</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&family=Exo+2:ital,wght@0,200;0,400;0,700;0,900;1,200&display=swap" rel="stylesheet">
+<style>
+:root {
+  --blue: #0057FF;
+  --blue-bright: #1A6FFF;
+  --blue-dim: #003CB3;
+  --blue-glow: rgba(0,87,255,0.25);
+  --dark: #0A0C10;
+  --dark-2: #111318;
+  --dark-3: #181C24;
+  --dark-4: #1E2330;
+  --gray: #2A3040;
+  --gray-light: #3A4255;
+  --text: #E4E8F0;
+  --text-muted: #7A8499;
+  --border: rgba(255,255,255,0.07);
+  --border-blue: rgba(0,87,255,0.25);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--dark);
+  color: var(--text);
+  font-family: 'Exo 2', sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  height: 70px; padding: 0 5vw;
+  display: flex; align-items: center; justify-content: space-between;
+  background: rgba(10,12,16,0.95);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-logo {
+  display: flex; align-items: center; gap: 12px;
+  text-decoration: none; color: white;
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 700; font-size: 20px; letter-spacing: 0.06em; text-transform: uppercase;
+}
+.nav-logo-img { height: 36px; width: auto; }
+.nav-logo-text { color: white; }
+.nav-logo-text span { color: var(--blue-bright); }
+.nav-links { display: flex; align-items: center; gap: 36px; list-style: none; }
+.nav-links a {
+  color: var(--text-muted); text-decoration: none;
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 13px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: white; }
+.nav-cta {
+  background: var(--blue) !important; color: white !important;
+  padding: 9px 22px;
+  clip-path: polygon(0 0, 94% 0, 100% 28%, 100% 100%, 6% 100%, 0 72%);
+  transition: background 0.2s !important;
+}
+.nav-cta:hover { background: var(--blue-bright) !important; }
+.nav-social {
+  color: var(--text-muted) !important;
+  display: flex; align-items: center;
+  transition: color 0.2s !important;
+  padding: 0 !important; background: none !important;
+  clip-path: none !important;
+}
+.nav-social:hover { color: var(--blue-bright) !important; }
+
+/* ── HERO ── */
+#hero {
+  min-height: 100vh; padding-top: 70px;
+  display: grid; grid-template-columns: 1fr 1fr;
+  position: relative; overflow: hidden;
+  background: var(--dark);
+}
+.hero-left {
+  display: flex; flex-direction: column; justify-content: center;
+  padding: 80px 5vw 80px 7vw; position: relative; z-index: 2;
+}
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 10px;
+  margin-bottom: 32px;
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 11px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--blue-bright);
+}
+.hero-eyebrow::before { content: ''; width: 32px; height: 2px; background: var(--blue-bright); }
+h1 {
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 700; text-transform: uppercase;
+  font-size: clamp(48px, 6vw, 92px);
+  line-height: 0.9; letter-spacing: 0.01em;
+  margin-bottom: 28px; color: white;
+}
+h1 em { font-style: normal; color: var(--blue-bright); display: block; }
+h1 .dim { color: var(--text-muted); font-weight: 200; }
+.hero-desc {
+  font-size: 16px; font-weight: 300; color: var(--text-muted);
+  max-width: 440px; line-height: 1.75; margin-bottom: 44px;
+}
+.hero-actions { display: flex; gap: 16px; flex-wrap: wrap; }
+.btn-primary {
+  background: var(--blue); color: white;
+  padding: 15px 36px; font-family: 'Rajdhani', sans-serif;
+  font-weight: 700; font-size: 14px; letter-spacing: 0.1em; text-transform: uppercase;
+  text-decoration: none; display: inline-block;
+  clip-path: polygon(0 0, 93% 0, 100% 22%, 100% 100%, 7% 100%, 0 78%);
+  transition: all 0.2s;
+}
+.btn-primary:hover { background: var(--blue-bright); transform: translateY(-2px); box-shadow: 0 8px 32px var(--blue-glow); }
+.btn-secondary {
+  border: 1px solid var(--border-blue); color: var(--text);
+  padding: 15px 36px; font-family: 'Rajdhani', sans-serif;
+  font-weight: 600; font-size: 14px; letter-spacing: 0.1em; text-transform: uppercase;
+  text-decoration: none; display: inline-block; transition: all 0.2s;
+}
+.btn-secondary:hover { border-color: var(--blue-bright); color: var(--blue-bright); }
+.hero-stats {
+  display: flex; gap: 44px; margin-top: 56px;
+  padding-top: 40px; border-top: 1px solid var(--border);
+}
+.stat-val {
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 700; font-size: 42px; color: white; line-height: 1;
+}
+.stat-val span { color: var(--blue-bright); }
+.stat-label { font-size: 11px; color: var(--text-muted); margin-top: 4px; text-transform: uppercase; letter-spacing: 0.1em; }
+
+.hero-right {
+  position: relative; overflow: hidden;
+  background: var(--dark-2);
+}
+.hero-grid-bg {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(0,87,255,0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,87,255,0.05) 1px, transparent 1px);
+  background-size: 44px 44px;
+}
+.hero-gradient-left {
+  position: absolute; top: 0; left: 0; bottom: 0; width: 120px;
+  background: linear-gradient(90deg, var(--dark), transparent);
+  z-index: 2;
+}
+.hero-img-wrap {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  padding: 40px;
+}
+.hero-machine-img {
+  max-width: 100%; max-height: 100%; object-fit: contain;
+  filter: drop-shadow(0 0 40px rgba(0,87,255,0.3));
+  animation: floatImg 6s ease-in-out infinite;
+}
+@keyframes floatImg {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+.hero-corner { position: absolute; width: 24px; height: 24px; border-color: var(--blue); border-style: solid; opacity: 0.4; }
+.hero-corner.tl { top: 20px; left: 20px; border-width: 2px 0 0 2px; }
+.hero-corner.tr { top: 20px; right: 20px; border-width: 2px 2px 0 0; }
+.hero-corner.bl { bottom: 20px; left: 20px; border-width: 0 0 2px 2px; }
+.hero-corner.br { bottom: 20px; right: 20px; border-width: 0 2px 2px 0; }
+
+/* ── TICKER ── */
+.ticker-bar {
+  background: var(--blue); padding: 11px 0; overflow: hidden;
+}
+.ticker-inner {
+  display: flex; gap: 52px; width: max-content;
+  animation: ticker 28s linear infinite;
+}
+@keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+.ticker-item {
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 700; font-size: 13px;
+  text-transform: uppercase; letter-spacing: 0.14em;
+  color: white; white-space: nowrap;
+  display: flex; align-items: center; gap: 16px;
+}
+.ticker-dot { width: 5px; height: 5px; background: rgba(255,255,255,0.5); border-radius: 50%; }
+
+/* ── SECTIONS SHARED ── */
+section { padding: 100px 6vw; }
+.section-header { margin-bottom: 64px; }
+.section-tag {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 11px; font-weight: 700; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--blue-bright);
+  display: flex; align-items: center; gap: 12px; margin-bottom: 18px;
+}
+.section-tag::before { content: ''; width: 28px; height: 2px; background: var(--blue-bright); }
+h2 {
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 700; text-transform: uppercase;
+  font-size: clamp(34px, 4vw, 62px);
+  line-height: 0.95; letter-spacing: 0.01em; color: white;
+}
+h2 .muted { color: var(--text-muted); font-weight: 200; font-style: italic; }
+.section-subtitle {
+  font-size: 16px; color: var(--text-muted); font-weight: 300;
+  max-width: 560px; margin-top: 20px; line-height: 1.75;
+}
+
+/* ── PRODUTOS ── */
+#produtos { background: var(--dark-2); }
+.products-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px;
+  background: var(--border);
+}
+.product-card {
+  background: var(--dark-3);
+  padding: 0; position: relative; overflow: hidden;
+  transition: background 0.3s;
+  display: flex; flex-direction: column;
+}
+.product-card:hover { background: var(--dark-4); }
+.product-card-img {
+  width: 100%; aspect-ratio: 4/3; object-fit: contain;
+  display: block;
+  background: var(--dark);
+  padding: 16px;
+  filter: drop-shadow(0 4px 24px rgba(0,87,255,0.18));
+  transition: filter 0.3s, transform 0.5s;
+}
+.product-card:hover .product-card-img { filter: drop-shadow(0 8px 32px rgba(0,87,255,0.35)); transform: scale(1.04); }
+.product-img-wrap { overflow: hidden; position: relative; background: var(--dark); }
+.product-img-wrap::after {
+  content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 40px;
+  background: linear-gradient(transparent, var(--dark));
+  pointer-events: none;
+}
+.product-card:hover .product-img-wrap::after { background: linear-gradient(transparent, var(--dark-4)); }
+.product-card::after {
+  content: ''; position: absolute; top: 0; left: 0;
+  width: 100%; height: 3px;
+  background: var(--blue);
+  transform: scaleX(0); transform-origin: left;
+  transition: transform 0.4s cubic-bezier(0.4,0,0.2,1);
+}
+.product-card:hover::after { transform: scaleX(1); }
+.product-body { padding: 28px 28px 32px; flex: 1; display: flex; flex-direction: column; }
+.product-line {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 10px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--blue-bright); margin-bottom: 8px;
+}
+.product-name {
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 700; font-size: 26px; text-transform: uppercase;
+  letter-spacing: 0.02em; color: white; margin-bottom: 14px; line-height: 1.1;
+}
+.product-desc { font-size: 13px; color: var(--text-muted); line-height: 1.65; margin-bottom: 20px; flex: 1; }
+.product-specs { display: flex; flex-direction: column; gap: 7px; margin-bottom: 24px; }
+.spec-row { display: flex; gap: 8px; align-items: center; font-size: 12px; }
+.spec-label { color: var(--text-muted); min-width: 80px; }
+.spec-val { color: white; font-weight: 600; font-family: 'Rajdhani', sans-serif; letter-spacing: 0.04em; }
+.product-cta {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 12px; font-weight: 700; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--blue-bright);
+  text-decoration: none; display: flex; align-items: center; gap: 8px;
+  transition: gap 0.2s;
+}
+.product-cta:hover { gap: 12px; }
+.product-cta::after { content: '→'; }
+
+/* ── LINHAS ── */
+#linhas { background: var(--dark); }
+.linhas-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 2px;
+  background: var(--border);
+}
+.linha-card {
+  background: var(--dark-3);
+  display: grid; grid-template-columns: 260px 1fr;
+  min-height: 260px; overflow: hidden;
+  transition: background 0.3s; position: relative;
+}
+.linha-card:hover { background: var(--dark-4); }
+.linha-card::before {
+  content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
+  background: var(--blue);
+  transform: scaleY(0); transform-origin: top;
+  transition: transform 0.4s cubic-bezier(0.4,0,0.2,1);
+}
+.linha-card:hover::before { transform: scaleY(1); }
+.linha-img-wrap { overflow: hidden; position: relative; background: var(--dark); min-height: 260px; }
+.linha-img { width: 100%; height: 100%; object-fit: contain; padding: 20px; filter: drop-shadow(0 4px 20px rgba(0,87,255,0.2)); transition: filter 0.4s, transform 0.5s; }
+.linha-card:hover .linha-img { filter: drop-shadow(0 8px 32px rgba(0,87,255,0.4)); transform: scale(1.05); }
+.linha-body { padding: 32px 28px; display: flex; flex-direction: column; justify-content: center; }
+.linha-tag { font-family: 'Rajdhani', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--blue-bright); margin-bottom: 10px; }
+.linha-name { font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 30px; text-transform: uppercase; color: white; margin-bottom: 12px; line-height: 1; }
+.linha-desc { font-size: 13px; color: var(--text-muted); line-height: 1.65; margin-bottom: 20px; }
+.linha-sizes { display: flex; flex-direction: column; gap: 5px; }
+.size-row { display: flex; gap: 10px; align-items: center; font-size: 12px; }
+.size-dot { width: 4px; height: 4px; background: var(--blue-bright); border-radius: 50%; flex-shrink: 0; }
+.size-name { font-family: 'Rajdhani', sans-serif; font-weight: 700; color: var(--blue-bright); font-size: 14px; }
+.size-dim { color: var(--text-muted); }
+
+/* ── DIFERENCIAIS ── */
+#diferenciais { background: var(--dark-3); position: relative; overflow: hidden; }
+#diferenciais::after {
+  content: 'CM'; position: absolute; right: -2%; top: 50%; transform: translateY(-50%);
+  font-family: 'Rajdhani', sans-serif; font-weight: 700;
+  font-size: min(28vw, 340px);
+  color: rgba(0,87,255,0.03); line-height: 1; pointer-events: none; user-select: none;
+}
+.dif-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+.dif-list { display: flex; flex-direction: column; gap: 20px; }
+.dif-item {
+  display: flex; gap: 24px; align-items: flex-start;
+  padding: 26px; background: rgba(0,87,255,0.03);
+  border-left: 3px solid transparent;
+  transition: all 0.3s; cursor: default;
+}
+.dif-item:hover { background: rgba(0,87,255,0.07); border-left-color: var(--blue); }
+.dif-num {
+  font-family: 'Rajdhani', sans-serif; font-size: 44px; font-weight: 700;
+  color: rgba(0,87,255,0.2); line-height: 1; flex-shrink: 0; width: 38px;
+}
+.dif-item:hover .dif-num { color: var(--blue-bright); }
+.dif-content h3 {
+  font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 18px;
+  text-transform: uppercase; letter-spacing: 0.05em; color: white; margin-bottom: 8px;
+}
+.dif-content p { font-size: 14px; color: var(--text-muted); line-height: 1.65; }
+.dif-icons-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.dif-icon-card {
+  background: rgba(0,87,255,0.05); border: 1px solid var(--border-blue);
+  padding: 32px 24px; text-align: center; transition: all 0.3s;
+}
+.dif-icon-card:hover { background: rgba(0,87,255,0.1); border-color: var(--blue); }
+.dif-icon-img { width: 64px; height: 64px; object-fit: contain; margin: 0 auto 16px; display: block; filter: brightness(0) invert(1) sepia(1) saturate(3) hue-rotate(195deg); }
+.dif-icon-title { font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 15px; text-transform: uppercase; letter-spacing: 0.05em; color: white; margin-bottom: 6px; }
+.dif-icon-desc { font-size: 12px; color: var(--text-muted); line-height: 1.6; }
+.dif-icon-card.wide { grid-column: 1 / -1; }
+
+/* ── PROCESSO ── */
+#processo { background: var(--dark-2); }
+.steps-row { display: flex; gap: 0; position: relative; }
+.steps-row::before {
+  content: ''; position: absolute; top: 32px; left: 6%; right: 6%;
+  height: 1px; background: var(--border); z-index: 0;
+}
+.step { flex: 1; text-align: center; padding: 0 20px; position: relative; z-index: 1; }
+.step-circle {
+  width: 64px; height: 64px;
+  background: var(--dark-3); border: 1px solid var(--border-blue);
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 24px; transition: all 0.3s;
+}
+.step:hover .step-circle { background: var(--blue); border-color: var(--blue); box-shadow: 0 0 24px var(--blue-glow); }
+.step-n {
+  font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 22px;
+  color: var(--text-muted); transition: color 0.3s;
+}
+.step:hover .step-n { color: white; }
+.step-title { font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 16px; text-transform: uppercase; color: white; margin-bottom: 10px; letter-spacing: 0.06em; }
+.step-desc { font-size: 13px; color: var(--text-muted); line-height: 1.6; }
+
+/* ── CTA BANNER ── */
+#cta-banner {
+  background: var(--blue);
+  padding: 80px 6vw;
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 40px; flex-wrap: wrap;
+  position: relative; overflow: hidden;
+}
+#cta-banner::before {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(135deg, var(--blue-dim) 0%, var(--blue) 50%, var(--blue-bright) 100%);
+}
+#cta-banner > * { position: relative; z-index: 1; }
+#cta-banner h2 { color: white; font-size: clamp(30px, 4vw, 54px); }
+#cta-banner h2 .muted { color: rgba(255,255,255,0.55); }
+.btn-dark {
+  background: var(--dark); color: white;
+  padding: 17px 44px;
+  font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 14px;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  text-decoration: none; white-space: nowrap;
+  clip-path: polygon(0 0, 92% 0, 100% 22%, 100% 100%, 8% 100%, 0 78%);
+  transition: all 0.2s; flex-shrink: 0;
+}
+.btn-dark:hover { background: white; color: var(--dark); }
+
+/* ── CONTATO ── */
+#contato { background: var(--dark); display: grid; grid-template-columns: 1fr 1fr; }
+.contato-info { padding: 100px 5vw 100px 6vw; background: var(--dark-2); border-right: 1px solid var(--border); }
+.contato-form-wrap { padding: 100px 6vw 100px 5vw; }
+.contact-detail { display: flex; gap: 16px; align-items: flex-start; margin-bottom: 32px; }
+.contact-detail-icon {
+  width: 44px; height: 44px; flex-shrink: 0;
+  background: rgba(0,87,255,0.1);
+  display: flex; align-items: center; justify-content: center;
+}
+.contact-detail-icon svg { width: 20px; height: 20px; stroke: var(--blue-bright); fill: none; stroke-width: 1.5; }
+.contact-detail-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); margin-bottom: 4px; }
+.contact-detail-val { font-size: 16px; color: white; font-weight: 500; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.form-group { display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; }
+.form-group label { font-family: 'Rajdhani', sans-serif; font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--text-muted); }
+.form-group input, .form-group select, .form-group textarea {
+  background: var(--dark-3); border: 1px solid var(--border);
+  color: white; padding: 13px 16px;
+  font-family: 'Exo 2', sans-serif; font-size: 14px;
+  outline: none; transition: border-color 0.2s; resize: vertical;
+}
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--blue); }
+.form-group select option { background: var(--dark-3); }
+.btn-form {
+  background: var(--blue); color: white;
+  padding: 15px 36px; font-family: 'Rajdhani', sans-serif;
+  font-weight: 700; font-size: 14px; letter-spacing: 0.1em; text-transform: uppercase;
+  border: none; cursor: pointer; width: 100%;
+  clip-path: polygon(0 0, 97% 0, 100% 30%, 100% 100%, 3% 100%, 0 70%);
+  transition: all 0.2s;
+}
+.btn-form:hover { background: var(--blue-bright); }
+
+/* ── FOOTER ── */
+footer { background: var(--dark-2); border-top: 1px solid var(--border); }
+.footer-top {
+  padding: 72px 6vw 56px;
+  display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 60px;
+}
+.footer-brand p { font-size: 14px; color: var(--text-muted); line-height: 1.7; margin-top: 20px; max-width: 280px; }
+.footer-col h4 {
+  font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 13px;
+  text-transform: uppercase; letter-spacing: 0.12em; color: white; margin-bottom: 18px;
+}
+.footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.footer-col a { color: var(--text-muted); text-decoration: none; font-size: 14px; transition: color 0.2s; }
+.footer-col a:hover { color: var(--blue-bright); }
+.footer-bottom {
+  padding: 20px 6vw; border-top: 1px solid var(--border);
+  display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;
+}
+.footer-bottom span { font-size: 12px; color: var(--text-muted); }
+.footer-bottom a { font-size: 12px; color: var(--text-muted); text-decoration: none; }
+.footer-bottom a:hover { color: white; }
+
+/* ── WA FLOAT ── */
+.whatsapp-float {
+  position: fixed; bottom: 32px; right: 32px; z-index: 999;
+  width: 58px; height: 58px;
+  background: #25D366; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 4px 20px rgba(37,211,102,0.35);
+  transition: all 0.25s;
+}
+.whatsapp-float:hover { transform: scale(1.08); box-shadow: 0 8px 32px rgba(37,211,102,0.5); }
+.whatsapp-float svg { width: 30px; height: 30px; fill: white; }
+
+/* ── REVEAL ── */
+[data-reveal] { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
+[data-reveal][data-reveal-delay="1"] { transition-delay: 0.12s; }
+[data-reveal][data-reveal-delay="2"] { transition-delay: 0.24s; }
+[data-reveal][data-reveal-delay="3"] { transition-delay: 0.36s; }
+[data-reveal][data-reveal-delay="4"] { transition-delay: 0.48s; }
+[data-reveal].visible { opacity: 1; transform: none; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 1024px) {
+  #hero { grid-template-columns: 1fr; }
+  .hero-right { display: none; }
+  .linhas-grid { grid-template-columns: 1fr; }
+  .linha-card { grid-template-columns: 200px 1fr; }
+  .dif-layout { grid-template-columns: 1fr; }
+  .footer-top { grid-template-columns: 1fr 1fr; gap: 40px; }
+  #contato { grid-template-columns: 1fr; }
+  .products-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 640px) {
+  .nav-links { display: none; }
+  .products-grid { grid-template-columns: 1fr; }
+  .steps-row { flex-direction: column; gap: 32px; }
+  .steps-row::before { display: none; }
+  .form-row { grid-template-columns: 1fr; }
+  .dif-icons-grid { grid-template-columns: 1fr; }
+  .linha-card { grid-template-columns: 1fr; }
+}
+</style>
 </head>
 <body>
-    
+
+<nav>
+  <a href="#" class="nav-logo">
+    <img src="CMlogo.png" alt="CM" class="nav-logo-img" onerror="this.style.display='none'"><span>Equipamentos</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#produtos">Produtos</a></li>
+    <li><a href="#linhas">Linhas</a></li>
+    <li><a href="#diferenciais">Diferenciais</a></li>
+    <li><a href="#processo">Como Funciona</a></li>
+    <li><a href="#contato" class="nav-cta">Solicitar Orçamento</a></li>
+    <li>
+      <a href="https://wa.me/5583992170544" target="_blank" rel="noopener" class="nav-social" title="WhatsApp">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      </a>
+    </li>
+    <li>
+      <a href="https://instagram.com/cm.equipamentos" target="_blank" rel="noopener" class="nav-social" title="Instagram">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+      </a>
+    </li>
+  </ul>
+</nav>
+
+<section id="hero">
+  <div class="hero-left">
+    <div class="hero-eyebrow">Pioneira em CNC no Nordeste — desde 2017</div>
+    <h1>
+      <span class="dim">Precisão</span>
+      <em>Linha X</em>
+      2025
+    </h1>
+    <p class="hero-desc">
+      Pioneira em CNC no Nordeste desde 2017. Fabricamos o <strong style="color:white">CMRouter 2.5</strong> — Router CNC, Laser e Fresas — com estrutura de aço pesado, controle de alta precisão e suporte técnico real em João Pessoa, PB.
+    </p>
+    <div class="hero-actions">
+      <a href="#contato" class="btn-primary">Solicitar Orçamento</a>
+      <a href="#produtos" class="btn-secondary">Ver Catálogo</a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <div class="stat-val">2017<span></span></div>
+        <div class="stat-label">Fundada em</div>
+      </div>
+      <div>
+        <div class="stat-val">A <span>MAIOR</span></div>
+        <div class="stat-label">do Nordeste</div>
+      </div>
+      <div>
+        <div class="stat-val">Local<span></span></div>
+        <div class="stat-label">João Pessoa, PB</div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-grid-bg"></div>
+    <div class="hero-gradient-left"></div>
+    <div class="hero-corner tl"></div>
+    <div class="hero-corner tr"></div>
+    <div class="hero-corner bl"></div>
+    <div class="hero-corner br"></div>
+    <div class="hero-img-wrap">
+      <img src="linhaX.png" alt="CMRouter X 2025" class="hero-machine-img">
+    </div>
+  </div>
+</section>
+
+<div class="ticker-bar">
+  <div class="ticker-inner">
+    <div class="ticker-item"><span class="ticker-dot"></span>CMRouter X</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>CMRouter Blue</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>Force Line</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>X 5.0 DUO</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>Corte em ACM</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>Marcenaria CNC</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>Zeramento Automático</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>Mesa a Vácuo</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>Controle DDCS</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>CMRouter X</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>CMRouter Blue</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>Force Line</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>X 5.0 DUO</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>Corte em ACM</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>Marcenaria CNC</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>Zeramento Automático</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>Mesa a Vácuo</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>Controle DDCS</div>
+  </div>
+</div>
+
+<!-- PRODUTOS EM DESTAQUE -->
+<section id="produtos">
+  <div class="section-header" data-reveal>
+    <div class="section-tag">Catálogo CM</div>
+    <h2>Nossas <span class="muted">Linhas</span><br>de Alta Performance</h2>
+    <p class="section-subtitle">Do acabamento em marcenaria ao corte 100% automático em ACM — a CM entrega a máquina certa para o seu processo.</p>
+  </div>
+  <div class="products-grid">
+    <div class="product-card" data-reveal>
+      <div class="product-img-wrap">
+        <img src="LinhaX.png" alt="CMRouter X" class="product-card-img">
+      </div>
+      <div class="product-body">
+        <div class="product-line">Linha X 2025</div>
+        <div class="product-name">CMRouter X</div>
+        <p class="product-desc">Estrutura reforçada, controle DDCS e motores com 85kg de força. O novo padrão da linha X para marcenaria e sinalização de alto volume.</p>
+        <div class="product-specs">
+          <div class="spec-row"><span class="spec-label">Controladora</span><span class="spec-val">Comando DDCS</span></div>
+          <div class="spec-row"><span class="spec-label">Motor</span><span class="spec-val">85kg + Red. 4x1</span></div>
+          <div class="spec-row"><span class="spec-label">Spindle</span><span class="spec-val">4CV a Ar</span></div>
+          <div class="spec-row"><span class="spec-label">Deslocamento</span><span class="spec-val">até 20m/min</span></div>
+        </div>
+        <a href="#contato" class="product-cta">Solicitar Orçamento</a>
+      </div>
+    </div>
+    <div class="product-card" data-reveal data-reveal-delay="1">
+      <div class="product-img-wrap">
+        <img src="linhaForce.png" alt="CMRouter Force X" class="product-card-img">
+      </div>
+      <div class="product-body">
+        <div class="product-line">Nova Linha Force</div>
+        <div class="product-name">Force X — A Força da Precisão</div>
+        <p class="product-desc">Easy Servo de 120kg, spindle 6CV e até 30m/min de deslocamento. Para marcenarias que exigem o máximo em produtividade e precisão.</p>
+        <div class="product-specs">
+          <div class="spec-row"><span class="spec-label">Controladora</span><span class="spec-val">Comando DDCS</span></div>
+          <div class="spec-row"><span class="spec-label">Motor</span><span class="spec-val">Easy Servo 120kg</span></div>
+          <div class="spec-row"><span class="spec-label">Spindle</span><span class="spec-val">6CV a Ar</span></div>
+          <div class="spec-row"><span class="spec-label">Deslocamento</span><span class="spec-val">até 30m/min</span></div>
+        </div>
+        <a href="#contato" class="product-cta">Solicitar Orçamento</a>
+      </div>
+    </div>
+    <div class="product-card" data-reveal data-reveal-delay="2">
+      <div class="product-img-wrap">
+        <img src="Router5.0duo.png" alt="CMRouter X 5.0 DUO" class="product-card-img">
+      </div>
+      <div class="product-body">
+        <div class="product-line">Linha ACM</div>
+        <div class="product-name">X 5.0 DUO — Agilidade e Produtividade</div>
+        <p class="product-desc">Corte e vinco de forma 100% automática em ACM. A solução mais completa do mercado para comunicação visual e fachadas.</p>
+        <div class="product-specs">
+          <div class="spec-row"><span class="spec-label">Aplicação</span><span class="spec-val">Corte / Vinco ACM</span></div>
+          <div class="spec-row"><span class="spec-label">Automação</span><span class="spec-val">100% Automática</span></div>
+          <div class="spec-row"><span class="spec-label">Painel</span><span class="spec-val">Touch Screen</span></div>
+          <div class="spec-row"><span class="spec-label">Origem</span><span class="spec-val">100% Brasileiro</span></div>
+        </div>
+        <a href="#contato" class="product-cta">Solicitar Orçamento</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LINHAS COMPLETAS -->
+<section id="linhas">
+  <div class="section-header" data-reveal>
+    <div class="section-tag">Modelos e tamanhos</div>
+    <h2>Escolha o <span class="muted">Modelo</span><br>Ideal</h2>
+    <p class="section-subtitle">Duas linhas, múltiplos tamanhos de área útil. Do pequeno ateliê à grande indústria, a CM tem a configuração certa para você.</p>
+  </div>
+  <div class="linhas-grid">
+    <div class="linha-card" data-reveal>
+      <div class="linha-img-wrap">
+        <img src="Router5.0.png" alt="CMRouter X" class="linha-img">
+      </div>
+      <div class="linha-body">
+        <div class="linha-tag">Linha Premium</div>
+        <div class="linha-name">CMRouter X</div>
+        <p class="linha-desc">Garantia, assistência e pós-venda sem enrolação. Estrutura pesada, acabamento superior e tecnologia de controle de última geração.</p>
+        <div class="linha-sizes">
+          <div class="size-row"><span class="size-dot"></span><span class="size-name">5.0</span><span class="size-dim">5000 × 1850mm</span></div>
+          <div class="size-row"><span class="size-dot"></span><span class="size-name">3.0</span><span class="size-dim">2750 × 1850mm</span></div>
+          <div class="size-row"><span class="size-dot"></span><span class="size-name">2.5</span><span class="size-dim">2500 × 1500mm</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="linha-card" data-reveal data-reveal-delay="1">
+      <div class="linha-img-wrap">
+        <img src="Router3.0.png" alt="CMRouter Blue" class="linha-img">
+      </div>
+      <div class="linha-body">
+        <div class="linha-tag">Linha Acessível</div>
+        <div class="linha-name">CMRouter Blue</div>
+        <p class="linha-desc">Qualidade CM com custo-benefício imbatível. Ideal para quem está começando ou quer uma segunda máquina para ampliar a capacidade produtiva.</p>
+        <div class="linha-sizes">
+          <div class="size-row"><span class="size-dot"></span><span class="size-name">1.0</span><span class="size-dim">1200 × 1500mm</span></div>
+          <div class="size-row"><span class="size-dot"></span><span class="size-name">2.5</span><span class="size-dim">2500 × 1500mm</span></div>
+          <div class="size-row"><span class="size-dot"></span><span class="size-name">3.0</span><span class="size-dim">2750 × 1850mm</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DIFERENCIAIS -->
+<section id="diferenciais">
+  <div class="dif-layout">
+    <div>
+      <div class="section-header" data-reveal>
+        <div class="section-tag">Por que escolher a CM</div>
+        <h2>Mais que<br>uma Máquina:<br><span class="muted">Parceria</span></h2>
+        <p class="section-subtitle">Fabricamos, entregamos, instalamos e oferecemos suporte técnico completo. A CM está do seu lado em cada etapa da operação.</p>
+      </div>
+      <div class="dif-list">
+        <div class="dif-item" data-reveal>
+          <div class="dif-num">01</div>
+          <div class="dif-content">
+            <h3>Fabricação Nacional</h3>
+            <p>100% projetado e fabricado no Brasil. Peças de reposição acessíveis, sem espera de importação, com assistência técnica local.</p>
+          </div>
+        </div>
+        <div class="dif-item" data-reveal data-reveal-delay="1">
+          <div class="dif-num">02</div>
+          <div class="dif-content">
+            <h3>Garantia e Pós-Venda Real</h3>
+            <p>Suporte técnico dedicado após a venda, sem enrolação. Nossa equipe responde rápido para que sua produção nunca pare.</p>
+          </div>
+        </div>
+        <div class="dif-item" data-reveal data-reveal-delay="2">
+          <div class="dif-num">03</div>
+          <div class="dif-content">
+            <h3>Estrutura de Aço Pesado</h3>
+            <p>Rigidez máxima para cortes exigentes. Trilhos de precisão e redução planetária garantem repetibilidade em longo prazo.</p>
+          </div>
+        </div>
+        <div class="dif-item" data-reveal data-reveal-delay="3">
+          <div class="dif-num">04</div>
+          <div class="dif-content">
+            <h3>Treinamento e Suporte Online</h3>
+            <p>Capacitação do operador inclusa. Nossa equipe de engenharia oferece suporte remoto para setup, programação e otimização de parâmetros.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="dif-icons-grid" data-reveal>
+      <div class="dif-icon-card">
+        <img src="garantia.png" alt="Garantia" class="dif-icon-img">
+        <div class="dif-icon-title">Garantia Real</div>
+        <div class="dif-icon-desc">Assistência e pós-venda sem letras miúdas</div>
+      </div>
+      <div class="dif-icon-card">
+        <img src="factor.png" alt="Fábrica" class="dif-icon-img">
+        <div class="dif-icon-title">Fábrica Própria</div>
+        <div class="dif-icon-desc">Produção nacional, peças sempre disponíveis</div>
+      </div>
+      <div class="dif-icon-card wide">
+        <img src="client.png" alt="Suporte" class="dif-icon-img">
+        <div class="dif-icon-title">Suporte Técnico Especializado</div>
+        <div class="dif-icon-desc">Treinamento, operação remota e atendimento por engenheiros CNC</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMO FUNCIONA -->
+<section id="processo">
+  <div class="section-header" data-reveal style="text-align:center">
+    <div class="section-tag" style="justify-content:center">Processo simples e direto</div>
+    <h2>Como <span class="muted">Funciona?</span></h2>
+    <p class="section-subtitle" style="margin: 20px auto 0; text-align:center">Em 4 passos você tem seu equipamento CM de qualidade instalado e produzindo na sua empresa.</p>
+  </div>
+  <div class="steps-row" style="margin-top: 56px;">
+    <div class="step" data-reveal>
+      <div class="step-circle"><div class="step-n">1</div></div>
+      <div class="step-title">Solicite</div>
+      <p class="step-desc">Fale conosco via WhatsApp, formulário ou telefone. Conte seu processo e necessidade de área útil.</p>
+    </div>
+    <div class="step" data-reveal data-reveal-delay="1">
+      <div class="step-circle"><div class="step-n">2</div></div>
+      <div class="step-title">Consultoria</div>
+      <p class="step-desc">Nossa equipe técnica indica o modelo e configuração ideal para o seu volume de produção e material.</p>
+    </div>
+    <div class="step" data-reveal data-reveal-delay="2">
+      <div class="step-circle"><div class="step-n">3</div></div>
+      <div class="step-title">Proposta</div>
+      <p class="step-desc">Receba um orçamento detalhado e personalizado em até 24h com todas as condições comerciais.</p>
+    </div>
+    <div class="step" data-reveal data-reveal-delay="3">
+      <div class="step-circle"><div class="step-n">4</div></div>
+      <div class="step-title">Instalação</div>
+      <p class="step-desc">Entrega, instalação e treinamento do operador incluso. Sua máquina pronta para produzir desde o primeiro dia.</p>
+    </div>
+  </div>
+</section>
+
+<div id="cta-banner">
+  <div data-reveal>
+    <h2>Pronto para <span class="muted">Começar?</span></h2>
+    <p style="color:rgba(255,255,255,0.65); margin-top:12px; font-size:17px; font-weight:300;">Solicite um orçamento gratuito e sem compromisso agora mesmo.</p>
+  </div>
+  <a href="#contato" class="btn-dark" data-reveal>Falar com um Especialista</a>
+</div>
+
+<div id="contato">
+  <div class="contato-info">
+    <div class="section-header" data-reveal>
+      <div class="section-tag">Fale conosco</div>
+      <h2>Entre em<br><span class="muted">Contato</span></h2>
+    </div>
+    <div class="contact-detail" data-reveal>
+      <div class="contact-detail-icon"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.4 19.79 19.79 0 01.24 5.72 2 2 0 012.22 3.6h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 11a16 16 0 006.09 6.09l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg></div>
+      <div>
+        <div class="contact-detail-label">WhatsApp / Telefone</div>
+        <div class="contact-detail-val"><a href="https://wa.me/5583992170544" target="_blank" style="color:white;text-decoration:none;">(83) 9 9921-7054</a></div>
+      </div>
+    </div>
+    <div class="contact-detail" data-reveal data-reveal-delay="1">
+      <div class="contact-detail-icon"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+      <div>
+        <div class="contact-detail-label">E-mail</div>
+        <div class="contact-detail-val">contato@cmequipamentos.com.br</div>
+      </div>
+    </div>
+    <div class="contact-detail" data-reveal data-reveal-delay="2">
+      <div class="contact-detail-icon"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+      <div>
+        <div class="contact-detail-label">Endereço</div>
+        <div class="contact-detail-val">João Pessoa, PB — Nordeste do Brasil</div>
+      </div>
+    </div>
+    <div class="contact-detail" data-reveal data-reveal-delay="3">
+      <div class="contact-detail-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+      <div>
+        <div class="contact-detail-label">Horário de Atendimento</div>
+        <div class="contact-detail-val">Seg–Sex 08h–18h</div>
+      </div>
+    </div>
+  </div>
+  <div class="contato-form-wrap">
+    <div class="section-header" data-reveal>
+      <div class="section-tag">Orçamento Gratuito</div>
+      <h2>Solicite Sua<br><span class="muted">Proposta</span></h2>
+    </div>
+    <form onsubmit="submitForm(event)" data-reveal>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Nome Completo *</label>
+          <input type="text" placeholder="Seu nome" required>
+        </div>
+        <div class="form-group">
+          <label>Empresa</label>
+          <input type="text" placeholder="Razão Social">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Telefone / WhatsApp *</label>
+          <input type="tel" placeholder="(XX) 9 0000-0000" required>
+        </div>
+        <div class="form-group">
+          <label>E-mail *</label>
+          <input type="email" placeholder="seu@email.com" required>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Modelo de Interesse *</label>
+        <select required>
+          <option value="">Selecione o modelo...</option>
+          <option>CMRouter X 2.5 (2500×1500mm)</option>
+          <option>CMRouter X 3.0 (2750×1850mm)</option>
+          <option>CMRouter X 5.0 (5000×1850mm)</option>
+          <option>CMRouter Force X 3.0</option>
+          <option>CMRouter X 5.0 DUO (ACM)</option>
+          <option>CMRouter Blue 1.0</option>
+          <option>CMRouter Blue 2.5</option>
+          <option>CMRouter Blue 3.0</option>
+          <option>Não sei / Preciso de consultoria</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Aplicação / Informações</label>
+        <textarea rows="4" placeholder="Descreva seu processo, material trabalhado e qualquer informação relevante..."></textarea>
+      </div>
+      <button type="submit" class="btn-form">Enviar Solicitação de Orçamento →</button>
+    </form>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <a href="#" class="nav-logo" style="text-decoration:none">
+        <span style="color:var(--blue-bright)">CM</span> Equipamentos
+      </a>
+      <p>Pioneira em CNC no Nordeste desde 2017. Trabalhamos com Router CNC, Laser e Fresas. Suporte técnico real em João Pessoa, PB.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Produtos</h4>
+      <ul>
+        <li><a href="#produtos">CMRouter X</a></li>
+        <li><a href="#produtos">Force Line</a></li>
+        <li><a href="#produtos">X 5.0 DUO</a></li>
+        <li><a href="#linhas">CMRouter Blue</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Redes Sociais</h4>
+      <ul>
+        <li><a href="https://instagram.com/cm.equipamentos" target="_blank" rel="noopener">Instagram @cm.equipamentos</a></li>
+        <li><a href="https://facebook.com/cmsignequipamentos" target="_blank" rel="noopener">Facebook /cmsignequipamentos</a></li>
+        <li><a href="https://wa.me/5583992170544" target="_blank" rel="noopener">WhatsApp (83) 9 9921-7054</a></li>
+        <li><a href="https://youtube.com" target="_blank" rel="noopener">YouTube — Canal CM</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contato</h4>
+      <ul>
+        <li><a href="https://wa.me/5583992170544" target="_blank">(83) 9 9921-7054</a></li>
+        <li><a href="mailto:contato@cmequipamentos.com.br">contato@cmequipamentos.com.br</a></li>
+        <li><a href="#">João Pessoa, PB</a></li>
+        <li><a href="#">Seg–Sex 08h–18h</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 CM Equipamentos. A maior do Nordeste desde 2017. João Pessoa, PB.</span>
+    <div style="display:flex; gap:24px;">
+      <a href="#">Política de Privacidade</a>
+      <a href="#">Termos de Uso</a>
+    </div>
+  </div>
+</footer>
+
+<a href="https://wa.me/5583992170544" class="whatsapp-float" target="_blank" rel="noopener" title="Falar no WhatsApp">
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<script>
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(el => { if (el.isIntersecting) el.target.classList.add('visible'); });
+}, { threshold: 0.12 });
+document.querySelectorAll('[data-reveal]').forEach(el => observer.observe(el));
+
+function submitForm(e) {
+  e.preventDefault();
+  const btn = e.target.querySelector('.btn-form');
+  btn.textContent = '✓ Solicitação enviada com sucesso!';
+  btn.style.background = '#1db954';
+  btn.style.clipPath = 'none';
+  setTimeout(() => {
+    btn.textContent = 'Enviar Solicitação de Orçamento →';
+    btn.style.background = '';
+    btn.style.clipPath = '';
+    e.target.reset();
+  }, 4000);
+}
+</script>
 </body>
 </html>
