@@ -286,7 +286,15 @@ h1 .dim { color: var(--text-muted); font-weight: 300; }
   background: rgba(255,255,255,0.25);
   border: 1px solid transparent;
   cursor: pointer; padding: 0;
+  position: relative; /* permite expandir a área de toque sem alterar o visual */
   transition: background 0.3s, transform 0.3s, border-color 0.3s;
+}
+.carousel-dot::before {
+  /* Área de toque mínima de 44x44px (WCAG), invisível, centrada no dot visual */
+  content: '';
+  position: absolute; top: 50%; left: 50%;
+  width: 44px; height: 44px;
+  transform: translate(-50%, -50%);
 }
 .carousel-dot.is-active {
   background: var(--blue-bright);
@@ -645,21 +653,40 @@ footer { background: var(--dark-2); border-top: 1px solid var(--border); }
 
 /* ── RESPONSIVE E MENU MOBILE ── */
 @media (max-width: 1024px) {
-  /* Abaixo de 1024px a galeria (.hero-right) é escondida e o texto centraliza;
-     a altura travada em 100dvh-70px com overflow:hidden cortava conteúdo
-     em telas baixas (celulares em paisagem, fonte do sistema maior etc). */
+  /* Abaixo de 1024px o Hero passa de grid 2 colunas para empilhado em coluna única.
+     O carrossel (.hero-right) MANTÉM-SE VISÍVEL — fica acima do texto, com altura
+     controlada (vh) para que o utilizador veja imagem + texto sem scroll excessivo. */
   .hero-wrapper { height: auto; min-height: calc(100dvh - 70px); overflow: visible; }
-  #hero { grid-template-columns: 1fr; overflow: visible; min-height: calc(100dvh - 70px); }
-  .hero-right { display: none; }
+  #hero {
+    display: flex; flex-direction: column;
+    overflow: visible; min-height: calc(100dvh - 70px);
+  }
+
+  /* Carrossel: ocupa ~42% da altura do ecrã, acima do texto */
+  .hero-right {
+    display: block;           /* era display:none — corrigido */
+    order: -1;                /* carrossel primeiro, texto depois */
+    height: 42vh;
+    min-height: 260px;
+    max-height: 420px;
+    flex-shrink: 0;
+  }
+  .hero-gradient-left { display: none; } /* gradiente lateral só faz sentido ao lado do texto (desktop) */
+  .carousel-slide { padding: 24px; }     /* menos padding = imagem maior no espaço reduzido */
+  .carousel-caption { bottom: 32px; }
+
+  /* Texto: ocupa o restante, centralizado */
   .hero-left {
-    padding: 60px 6vw;
+    padding: 32px 6vw 48px;
     align-items: center;
     text-align: center;
     overflow: visible;
   }
+  .hero-eyebrow { margin-bottom: 20px; }
+  .hero-desc { max-width: 100%; margin-bottom: 32px; }
   .hero-actions { justify-content: center; }
-  .hero-stats { justify-content: center; }
-  .hero-desc { max-width: 100%; }
+  .hero-stats { justify-content: center; margin-top: 36px; padding-top: 28px; }
+
   .linhas-grid { grid-template-columns: 1fr; }
   .linha-card { grid-template-columns: 200px 1fr; }
   .dif-layout { grid-template-columns: 1fr; }
@@ -687,8 +714,20 @@ footer { background: var(--dark-2); border-top: 1px solid var(--border); }
   .nav-links.active { transform: translateY(0); opacity: 1; visibility: visible; }
   .nav-links li { border-bottom: 1px solid var(--border); }
   .nav-links li:last-child { border-bottom: none; }
-  .nav-links a { display: block; padding: 20px 6vw; font-size: 14px; }
+  .nav-links a { display: block; padding: 20px 6vw; font-size: 14px; } /* já >44px de altura de toque */
   .nav-links a.nav-cta { border-radius: 0; text-align: center; }
+
+  /* ── Hero: mais compacto em telemóveis (vs. tablets em 1024px) ── */
+  .hero-right { height: 38vh; min-height: 220px; max-height: 340px; }
+  .hero-left { padding: 28px 5vw 40px; }
+  .hero-stats { gap: 32px; }
+
+  /* ── Espaçamentos: reduz padding lateral de 6vw para ~20px e padding vertical das secções ── */
+  section { padding: 64px 20px; }
+  section#cta-banner { padding: 56px 20px; }
+  .contato-info, .contato-form-wrap { padding: 56px 20px; }
+  .footer-top { padding: 56px 20px 40px; }
+  .footer-bottom { padding: 20px 20px; }
 
   /* .products-grid já é 1fr a partir de 900px (regra acima cobre este breakpoint) */
   .steps-row { flex-direction: column; gap: 32px; }
@@ -696,9 +735,23 @@ footer { background: var(--dark-2); border-top: 1px solid var(--border); }
   .form-row { grid-template-columns: 1fr; }
   .dif-icons-grid { grid-template-columns: 1fr; }
   .linha-card { grid-template-columns: 1fr; }
+
+  /* ── Touch targets: garante área mínima de 44x44px em links pequenos ── */
+  .product-cta { min-height: 44px; }
+  .footer-col a { display: inline-block; padding: 10px 0; }
 }
 @media (max-width: 640px) {
   .footer-top { grid-template-columns: 1fr; gap: 32px; }
+}
+@media (max-width: 480px) {
+  /* Em telemóveis pequenos (ex: 360-390px), o piso de 40px do clamp() do h1
+     pode forçar quebras de palavra apertadas. Reduz o piso mantendo a escala fluida. */
+  h1 { font-size: clamp(32px, 9vw, 48px); }
+  .hero-right { height: 34vh; min-height: 200px; max-height: 280px; }
+  .hero-left { padding: 24px 5vw 36px; }
+  .hero-stats { gap: 24px; flex-wrap: wrap; row-gap: 20px; }
+  .carousel-slide { padding: 16px; }
+  section { padding: 48px 20px; }
 }
 </style>
 </head>
