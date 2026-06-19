@@ -79,12 +79,13 @@ nav {
   max-width: 1440px; margin: 0 auto;
 }
 .nav-logo {
-  display: flex; align-items: center; gap: 12px;
+  display: flex; align-items: center;
   text-decoration: none; color: white;
   font-weight: 700; font-size: 18px; letter-spacing: 0.04em; text-transform: uppercase;
   z-index: 201; /* Fica acima do menu mobile */
+  flex-shrink: 0;
 }
-.nav-logo-img { height: 36px; width: auto; }
+.nav-logo-img { height: 42px; width: auto; max-width: 220px; object-fit: contain; display: block; }
 .nav-logo-text { color: white; }
 .nav-logo-text span { color: var(--blue-bright); }
 
@@ -493,16 +494,25 @@ section#diferenciais::after {
   text-transform: uppercase; letter-spacing: 0.05em; color: white; margin-bottom: 8px;
 }
 .dif-content p { font-size: 14px; color: var(--text-muted); line-height: 1.65; }
-.dif-icons-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.dif-icons-grid { display: flex; flex-direction: column; gap: 20px; height: 100%; justify-content: center; }
 .dif-icon-card {
+  display: flex; align-items: center; gap: 24px;
   background: rgba(0,87,255,0.05); border: 1px solid var(--border-blue);
   border-radius: var(--radius);
-  padding: 32px 24px; text-align: center; transition: background-color 0.3s, border-color 0.3s;
+  padding: 24px 28px; text-align: left; transition: background-color 0.3s, border-color 0.3s, transform 0.3s;
 }
-.dif-icon-card:hover { background: rgba(0,87,255,0.1); border-color: var(--blue); }
-.dif-icon-title { font-weight: 700; font-size: 15px; text-transform: uppercase; letter-spacing: 0.05em; color: white; margin-bottom: 6px; margin-top: 16px; }
-.dif-icon-desc { font-size: 12px; color: var(--text-muted); line-height: 1.6; }
-.dif-icon-card.wide { grid-column: 1 / -1; }
+.dif-icon-card:hover { background: rgba(0,87,255,0.1); border-color: var(--blue); transform: translateX(4px); }
+.dif-icon-media {
+  flex-shrink: 0; width: 72px; height: 72px;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--border-blue);
+  border-radius: 50%;
+}
+.dif-icon-media img { width: 40px; height: 40px; object-fit: contain; display: block; }
+.dif-icon-body { min-width: 0; }
+.dif-icon-title { font-weight: 700; font-size: 15px; text-transform: uppercase; letter-spacing: 0.05em; color: white; margin-bottom: 6px; margin-top: 0; }
+.dif-icon-desc { font-size: 13px; color: var(--text-muted); line-height: 1.6; }
 
 /* ── PROCESSO ── */
 section#processo { background: var(--dark-2); }
@@ -635,7 +645,6 @@ footer { background: var(--dark-2); border-top: 1px solid var(--border); }
 .u-mt-md       { margin-top: var(--space-md); }     /* 24px */
 .section-subtitle--center { margin: 20px auto 0; text-align: center; }
 .steps-row--spaced { margin-top: 56px; }
-.dif-icon-svg  { margin: 0 auto; display: block; }
 .cta-banner-sub { color: rgba(255,255,255,0.65); margin-top: 12px; font-size: 17px; font-weight: 300; }
 .nav-logo--footer { margin-bottom: var(--space-sm); display: inline-flex; }
 .sr-only {
@@ -717,6 +726,8 @@ footer { background: var(--dark-2); border-top: 1px solid var(--border); }
   .nav-links a { display: block; padding: 20px 6vw; font-size: 14px; } /* já >44px de altura de toque */
   .nav-links a.nav-cta { border-radius: 0; text-align: center; }
 
+  .nav-logo-img { height: 34px; max-width: 170px; }
+
   /* ── Hero: mais compacto em telemóveis (vs. tablets em 1024px) ── */
   .hero-right { height: 38vh; min-height: 220px; max-height: 340px; }
   .hero-left { padding: 28px 5vw 40px; }
@@ -733,7 +744,7 @@ footer { background: var(--dark-2); border-top: 1px solid var(--border); }
   .steps-row { flex-direction: column; gap: 32px; }
   .steps-row::before { display: none; }
   .form-row { grid-template-columns: 1fr; }
-  .dif-icons-grid { grid-template-columns: 1fr; }
+  .dif-icon-card { flex-direction: column; text-align: center; gap: 14px; padding: 28px 20px; }
   .linha-card { grid-template-columns: 1fr; }
 
   /* ── Touch targets: garante área mínima de 44x44px em links pequenos ── */
@@ -752,6 +763,7 @@ footer { background: var(--dark-2); border-top: 1px solid var(--border); }
   .hero-stats { gap: 24px; flex-wrap: wrap; row-gap: 20px; }
   .carousel-slide { padding: 16px; }
   section { padding: 48px 20px; }
+  .nav-logo-img { height: 28px; max-width: 140px; }
 }
 </style>
 </head>
@@ -760,7 +772,7 @@ footer { background: var(--dark-2); border-top: 1px solid var(--border); }
 <header>
   <nav>
     <a href="#" class="nav-logo">
-      <img src="CMlogo.png" alt="CM Equipamentos" class="nav-logo-img" onerror="this.style.display='none'"><span>Equipamentos</span>
+      <img src="logo_index.png" alt="CM Equipamentos - CNC Fabricados no Nordeste" class="nav-logo-img" onerror="this.style.display='none'">
     </a>
     
     <button class="mobile-toggle" aria-label="Abrir menu de navegação" aria-expanded="false">
@@ -998,25 +1010,25 @@ footer { background: var(--dark-2); border-top: 1px solid var(--border); }
         
         <div class="dif-icons-grid" data-reveal data-reveal-delay="2">
           <div class="dif-icon-card">
-            <svg class="dif-icon-svg" viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="var(--blue-bright)" stroke-width="1.5">
-              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-            </svg>
-            <h3 class="dif-icon-title">Garantia 1 Ano</h3>
-            <div class="dif-icon-desc">Cobertura total contra defeitos de fabricação.</div>
+            <div class="dif-icon-media"><img src="factor.png" alt="Fabricação própria CM Equipamentos" loading="lazy" width="40" height="40"></div>
+            <div class="dif-icon-body">
+              <h3 class="dif-icon-title">Fabricação Própria</h3>
+              <div class="dif-icon-desc">Parque fabril próprio no Nordeste, com controle de qualidade em cada etapa da produção.</div>
+            </div>
           </div>
           <div class="dif-icon-card">
-            <svg class="dif-icon-svg" viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="var(--blue-bright)" stroke-width="1.5">
-              <circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>
-            </svg>
-            <h3 class="dif-icon-title">Entrega Ágil</h3>
-            <div class="dif-icon-desc">Logística otimizada para o Nordeste.</div>
+            <div class="dif-icon-media"><img src="garantia.png" alt="Garantia CM Equipamentos" loading="lazy" width="40" height="40"></div>
+            <div class="dif-icon-body">
+              <h3 class="dif-icon-title">Garantia de 1 Ano</h3>
+              <div class="dif-icon-desc">Cobertura total contra defeitos de fabricação, com peças de reposição sempre disponíveis.</div>
+            </div>
           </div>
-          <div class="dif-icon-card wide">
-            <svg class="dif-icon-svg" viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="var(--blue-bright)" stroke-width="1.5">
-              <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/>
-            </svg>
-            <h3 class="dif-icon-title">Treinamento Incluso</h3>
-            <div class="dif-icon-desc">Sua equipe capacitada para operar as máquinas com eficiência desde o primeiro dia.</div>
+          <div class="dif-icon-card">
+            <div class="dif-icon-media"><img src="client.png" alt="Suporte ao cliente CM Equipamentos" loading="lazy" width="40" height="40"></div>
+            <div class="dif-icon-body">
+              <h3 class="dif-icon-title">Suporte Dedicado</h3>
+              <div class="dif-icon-desc">Atendimento técnico próximo, do orçamento ao pós-venda, para sua produção nunca parar.</div>
+            </div>
           </div>
         </div>
       </div>
@@ -1149,7 +1161,7 @@ footer { background: var(--dark-2); border-top: 1px solid var(--border); }
     <div class="footer-top">
       <div class="footer-brand">
         <a href="#" class="nav-logo nav-logo--footer">
-          <img src="CMlogo.png" alt="CM Equipamentos" class="nav-logo-img" onerror="this.style.display='none'">
+          <img src="logo_index.png" alt="CM Equipamentos - CNC Fabricados no Nordeste" class="nav-logo-img" onerror="this.style.display='none'">
         </a>
         <p>Desenvolvendo soluções em equipamentos industriais com foco em inovação, robustez e alta performance para impulsionar o seu negócio.</p>
       </div>
