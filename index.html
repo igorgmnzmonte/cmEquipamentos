@@ -76,6 +76,7 @@ header {
 nav {
   height: 70px; padding: 0 5vw;
   display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: nowrap;
   max-width: 1440px; margin: 0 auto;
 }
 .nav-logo {
@@ -117,6 +118,7 @@ nav {
   background: none; border: none;
   color: white; cursor: pointer;
   padding: 8px; z-index: 201;
+  flex-shrink: 0;
 }
 .mobile-toggle svg { width: 28px; height: 28px; stroke: currentColor; stroke-width: 2; fill: none; }
 .mobile-toggle .icon-close { display: none; }
@@ -737,6 +739,9 @@ footer { background: var(--dark-2); border-top: 1px solid var(--border); }
   section { padding: 64px 20px; }
   section#cta-banner { padding: 56px 20px; }
   .contato-info, .contato-form-wrap { padding: 56px 20px; }
+  .contato-form-wrap { display: none; }
+  section#contato { grid-template-columns: 1fr; }
+  .contato-info { border-right: none; border-bottom: 1px solid var(--border); }
   .footer-top { padding: 56px 20px 40px; }
   .footer-bottom { padding: 20px 20px; }
 
@@ -1092,7 +1097,7 @@ footer { background: var(--dark-2); border-top: 1px solid var(--border); }
           </div>
           <div>
             <div class="contact-detail-label">Telefone / WhatsApp</div>
-            <div class="contact-detail-val">(83) 99217-0544</div>
+            <div class="contact-detail-val"><a href="https://wa.me/5583992170544" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;">(83) 99217-0544</a></div>
           </div>
         </div>
         
